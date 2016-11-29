@@ -1,0 +1,47 @@
+<form [formGroup]="form" *ngIf="!isSuccess" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+        <!-- using formgroup object -->
+        <label for="oldpw">Old Password</label>
+        <input type="password" formControlName="oldpw" class="form-control">
+    </div>
+        <div *ngIf="form.controls.oldpw.errors && form.controls.oldpw.touched">
+            <div
+                *ngIf="form.controls.oldpw.errors">
+                <div class="alert alert-danger" *ngIf="form.controls.oldpw.errors.verifyPasswordAsync">
+                The password is incorrect. try amado123
+                </div>
+                <div class="alert alert-danger" *ngIf="form.controls.oldpw.errors.required">
+                This password is required.
+                </div>
+            </div>
+        </div>
+        <div formGroupName="newpwgroup">
+    <div class="form-group">
+        <!-- using temporary variable -->
+        <label for="newpwel">New Password</label>
+        <input type="password"  id="newpwel" class="form-control"
+             formControlName="newpw">
+    </div>
+        <div *ngIf="form.controls.newpwgroup.controls.newpw.errors && form.controls.newpwgroup.controls.newpw.touched">
+            <div *ngIf="form.controls.newpwgroup.controls.newpw.errors.required" class="alert alert-danger">This password is required.</div>
+            <div *ngIf="form.controls.newpwgroup.controls.newpw.errors.minlength" class="alert alert-danger">The password must be atleast 
+                {{form.controls.newpwgroup.controls.newpw.errors.minlength.requiredLength}} characters.</div>
+        </div>
+    <div class="form-group">
+        <label for="newpwcheckel">Confirm New Password</label>
+        <input type="password" formControlName="newpwcheck" id="newpwcheckel" class="form-control">
+    </div>
+    
+        <div *ngIf="form.controls.newpwgroup.controls.newpwcheck.errors && form.controls.newpwgroup.controls.newpwcheck.touched">
+            <div *ngIf="form.controls.newpwgroup.controls.newpwcheck.errors.required" class="alert alert-danger">This password is required.</div>
+        </div>
+        <div 
+            *ngIf="form.controls.newpwgroup.errors && form.controls.newpwgroup.controls.newpwcheck.valid" class="alert alert-danger">
+            The Passwords do not match!
+        </div>
+    </div>
+    <div class="form-group">
+        <button [disabled]="form.invalid" class="form-control">Change Password</button>
+    </div>
+</form>
+<div class="alert alert-success" *ngIf="isSuccess">Password has been changed!</div>
