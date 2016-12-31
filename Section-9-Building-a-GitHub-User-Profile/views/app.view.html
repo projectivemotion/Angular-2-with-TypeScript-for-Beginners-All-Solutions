@@ -1,0 +1,15 @@
+<span *ngIf="user">
+    <h1>Username: {{user.login}}</h1>
+    <div> User: <input type="text" (blur)="loadUserInfo($event.target.value)" value="{{user.login}}" /></div>
+    <div *ngFor="let follower of user.followers" class="media">
+        <div class="media-left">
+            <img src="{{follower.avatar_url}}" class="media-object avatar" /><br />
+        </div>
+        <div class="media-body">
+        Follower: <a href="#" (click)="loadUserInfo(follower.login)">{{ follower.login }}</a>
+        </div>
+    </div>
+</span> 
+<span *ngIf="!user">
+    Loading..
+</span>
